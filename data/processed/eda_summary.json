@@ -1,0 +1,419 @@
+{
+  "dataset_metadata": {
+    "total_students": 3000,
+    "total_features": 23,
+    "risk_distribution": {
+      "Moderate": 1855,
+      "High": 602,
+      "Low": 489,
+      "Very High": 54
+    }
+  },
+  "univariate_stats": {
+    "age": {
+      "mean": 20.57,
+      "std": 1.82,
+      "median": 20.0,
+      "min": 18.0,
+      "q25": 19.0,
+      "q75": 21.0,
+      "max": 28.0,
+      "skewness": 1.126
+    },
+    "attendance_percentage": {
+      "mean": 80.71,
+      "std": 8.5,
+      "median": 80.85,
+      "min": 47.6,
+      "q25": 74.9,
+      "q75": 86.6,
+      "max": 100.0,
+      "skewness": -0.103
+    },
+    "cgpa": {
+      "mean": 7.55,
+      "std": 0.74,
+      "median": 7.56,
+      "min": 5.04,
+      "q25": 7.03,
+      "q75": 8.04,
+      "max": 10.0,
+      "skewness": 0.029
+    },
+    "study_hours_per_day": {
+      "mean": 5.96,
+      "std": 1.79,
+      "median": 5.9,
+      "min": 0.5,
+      "q25": 4.7,
+      "q75": 7.1,
+      "max": 12.0,
+      "skewness": 0.272
+    },
+    "assignment_workload": {
+      "mean": 5.75,
+      "std": 2.06,
+      "median": 6.0,
+      "min": 1.0,
+      "q25": 4.0,
+      "q75": 7.0,
+      "max": 10.0,
+      "skewness": 0.082
+    },
+    "exam_frequency": {
+      "mean": 1.97,
+      "std": 1.43,
+      "median": 2.0,
+      "min": 0.0,
+      "q25": 1.0,
+      "q75": 3.0,
+      "max": 5.0,
+      "skewness": 0.463
+    },
+    "academic_pressure": {
+      "mean": 5.07,
+      "std": 2.07,
+      "median": 5.0,
+      "min": 1.0,
+      "q25": 4.0,
+      "q75": 7.0,
+      "max": 10.0,
+      "skewness": 0.076
+    },
+    "sleep_hours": {
+      "mean": 6.68,
+      "std": 1.21,
+      "median": 6.7,
+      "min": 3.0,
+      "q25": 5.8,
+      "q75": 7.6,
+      "max": 10.0,
+      "skewness": -0.104
+    },
+    "sleep_quality": {
+      "mean": 6.76,
+      "std": 2.0,
+      "median": 7.0,
+      "min": 1.0,
+      "q25": 5.0,
+      "q75": 8.0,
+      "max": 10.0,
+      "skewness": -0.21
+    },
+    "screen_time_hours": {
+      "mean": 7.69,
+      "std": 1.88,
+      "median": 7.6,
+      "min": 1.0,
+      "q25": 6.4,
+      "q75": 9.0,
+      "max": 13.9,
+      "skewness": 0.082
+    },
+    "physical_activity_hours": {
+      "mean": 4.69,
+      "std": 1.89,
+      "median": 4.7,
+      "min": 0.0,
+      "q25": 3.4,
+      "q75": 6.0,
+      "max": 10.0,
+      "skewness": 0.019
+    },
+    "social_interaction_hours": {
+      "mean": 10.33,
+      "std": 3.57,
+      "median": 10.3,
+      "min": 0.0,
+      "q25": 7.9,
+      "q75": 12.8,
+      "max": 20.0,
+      "skewness": -0.065
+    },
+    "breaks_per_day": {
+      "mean": 4.17,
+      "std": 1.43,
+      "median": 4.0,
+      "min": 0.0,
+      "q25": 3.0,
+      "q75": 5.0,
+      "max": 8.0,
+      "skewness": -0.023
+    },
+    "hobbies_hours_per_week": {
+      "mean": 6.8,
+      "std": 2.63,
+      "median": 6.7,
+      "min": 0.0,
+      "q25": 4.9,
+      "q75": 8.6,
+      "max": 15.0,
+      "skewness": 0.061
+    },
+    "days_off_per_week": {
+      "mean": 1.56,
+      "std": 0.73,
+      "median": 2.0,
+      "min": 0.0,
+      "q25": 1.0,
+      "q75": 2.0,
+      "max": 3.0,
+      "skewness": -0.021
+    },
+    "academic_pressure_score": {
+      "mean": 44.95,
+      "std": 15.5,
+      "median": 44.27,
+      "min": 8.69,
+      "q25": 33.25,
+      "q75": 56.48,
+      "max": 89.6,
+      "skewness": 0.143
+    },
+    "lifestyle_balance_score": {
+      "mean": 51.94,
+      "std": 14.33,
+      "median": 52.07,
+      "min": 15.13,
+      "q25": 41.2,
+      "q75": 62.89,
+      "max": 87.88,
+      "skewness": -0.096
+    },
+    "burnout_score": {
+      "mean": 46.51,
+      "std": 16.27,
+      "median": 45.65,
+      "min": 0.0,
+      "q25": 34.46,
+      "q75": 58.34,
+      "max": 97.77,
+      "skewness": 0.12
+    }
+  },
+  "bivariate_correlations": {
+    "academic_pressure_score": {
+      "pearson_r": 0.858,
+      "pearson_p": 0.0,
+      "spearman_rho": 0.859,
+      "spearman_p": 0.0,
+      "direction": "positive"
+    },
+    "lifestyle_balance_score": {
+      "pearson_r": -0.852,
+      "pearson_p": 0.0,
+      "spearman_rho": -0.856,
+      "spearman_p": 0.0,
+      "direction": "negative"
+    },
+    "academic_pressure": {
+      "pearson_r": 0.823,
+      "pearson_p": 0.0,
+      "spearman_rho": 0.833,
+      "spearman_p": 0.0,
+      "direction": "positive"
+    },
+    "sleep_quality": {
+      "pearson_r": -0.771,
+      "pearson_p": 0.0,
+      "spearman_rho": -0.779,
+      "spearman_p": 0.0,
+      "direction": "negative"
+    },
+    "assignment_workload": {
+      "pearson_r": 0.749,
+      "pearson_p": 0.0,
+      "spearman_rho": 0.751,
+      "spearman_p": 0.0,
+      "direction": "positive"
+    },
+    "sleep_hours": {
+      "pearson_r": -0.712,
+      "pearson_p": 0.0,
+      "spearman_rho": -0.716,
+      "spearman_p": 0.0,
+      "direction": "negative"
+    },
+    "study_hours_per_day": {
+      "pearson_r": 0.677,
+      "pearson_p": 0.0,
+      "spearman_rho": 0.672,
+      "spearman_p": 0.0,
+      "direction": "positive"
+    },
+    "breaks_per_day": {
+      "pearson_r": -0.669,
+      "pearson_p": 0.0,
+      "spearman_rho": -0.676,
+      "spearman_p": 0.0,
+      "direction": "negative"
+    },
+    "hobbies_hours_per_week": {
+      "pearson_r": -0.654,
+      "pearson_p": 0.0,
+      "spearman_rho": -0.655,
+      "spearman_p": 0.0,
+      "direction": "negative"
+    },
+    "social_interaction_hours": {
+      "pearson_r": -0.637,
+      "pearson_p": 0.0,
+      "spearman_rho": -0.633,
+      "spearman_p": 0.0,
+      "direction": "negative"
+    },
+    "physical_activity_hours": {
+      "pearson_r": -0.629,
+      "pearson_p": 0.0,
+      "spearman_rho": -0.635,
+      "spearman_p": 0.0,
+      "direction": "negative"
+    },
+    "screen_time_hours": {
+      "pearson_r": 0.575,
+      "pearson_p": 1.58e-263,
+      "spearman_rho": 0.567,
+      "spearman_p": 3.54e-255,
+      "direction": "positive"
+    },
+    "days_off_per_week": {
+      "pearson_r": -0.551,
+      "pearson_p": 1.42e-237,
+      "spearman_rho": -0.552,
+      "spearman_p": 3.19e-239,
+      "direction": "negative"
+    },
+    "attendance_percentage": {
+      "pearson_r": -0.43,
+      "pearson_p": 1.69e-135,
+      "spearman_rho": -0.421,
+      "spearman_p": 6.86e-129,
+      "direction": "negative"
+    },
+    "exam_frequency": {
+      "pearson_r": 0.42,
+      "pearson_p": 3.07e-128,
+      "spearman_rho": 0.404,
+      "spearman_p": 2.14e-118,
+      "direction": "positive"
+    },
+    "cgpa": {
+      "pearson_r": 0.065,
+      "pearson_p": 0.000341,
+      "spearman_rho": 0.07,
+      "spearman_p": 0.000112,
+      "direction": "positive"
+    },
+    "age": {
+      "pearson_r": 0.001,
+      "pearson_p": 0.965,
+      "spearman_rho": 0.0,
+      "spearman_p": 0.985,
+      "direction": "positive"
+    }
+  },
+  "cohort_by_course": {
+    "Arts": {
+      "student_count": 238,
+      "avg_burnout_score": 41.49,
+      "avg_academic_pressure": 39.32,
+      "avg_lifestyle_balance": 54.9,
+      "avg_sleep_hours": 6.88,
+      "high_risk_percentage": 8.4
+    },
+    "Business": {
+      "student_count": 321,
+      "avg_burnout_score": 43.68,
+      "avg_academic_pressure": 41.3,
+      "avg_lifestyle_balance": 53.01,
+      "avg_sleep_hours": 6.73,
+      "high_risk_percentage": 13.08
+    },
+    "Commerce": {
+      "student_count": 461,
+      "avg_burnout_score": 46.35,
+      "avg_academic_pressure": 43.5,
+      "avg_lifestyle_balance": 52.62,
+      "avg_sleep_hours": 6.69,
+      "high_risk_percentage": 22.99
+    },
+    "Computer Science": {
+      "student_count": 699,
+      "avg_burnout_score": 47.03,
+      "avg_academic_pressure": 45.14,
+      "avg_lifestyle_balance": 50.61,
+      "avg_sleep_hours": 6.65,
+      "high_risk_percentage": 22.6
+    },
+    "Design": {
+      "student_count": 292,
+      "avg_burnout_score": 48.03,
+      "avg_academic_pressure": 44.3,
+      "avg_lifestyle_balance": 49.93,
+      "avg_sleep_hours": 6.55,
+      "high_risk_percentage": 24.32
+    },
+    "Engineering": {
+      "student_count": 616,
+      "avg_burnout_score": 47.87,
+      "avg_academic_pressure": 47.49,
+      "avg_lifestyle_balance": 51.58,
+      "avg_sleep_hours": 6.66,
+      "high_risk_percentage": 26.3
+    },
+    "Medicine": {
+      "student_count": 373,
+      "avg_burnout_score": 47.97,
+      "avg_academic_pressure": 49.42,
+      "avg_lifestyle_balance": 52.98,
+      "avg_sleep_hours": 6.72,
+      "high_risk_percentage": 26.01
+    }
+  },
+  "cohort_by_year": {
+    "1": {
+      "student_count": 851,
+      "avg_burnout_score": 44.93,
+      "avg_academic_pressure": 42.67,
+      "avg_lifestyle_balance": 52.74,
+      "avg_sleep_hours": 6.75,
+      "high_risk_percentage": 18.57
+    },
+    "2": {
+      "student_count": 815,
+      "avg_burnout_score": 46.57,
+      "avg_academic_pressure": 44.46,
+      "avg_lifestyle_balance": 52.16,
+      "avg_sleep_hours": 6.7,
+      "high_risk_percentage": 20.37
+    },
+    "3": {
+      "student_count": 710,
+      "avg_burnout_score": 47.5,
+      "avg_academic_pressure": 45.97,
+      "avg_lifestyle_balance": 50.84,
+      "avg_sleep_hours": 6.58,
+      "high_risk_percentage": 25.35
+    },
+    "4": {
+      "student_count": 624,
+      "avg_burnout_score": 47.48,
+      "avg_academic_pressure": 47.53,
+      "avg_lifestyle_balance": 51.83,
+      "avg_sleep_hours": 6.69,
+      "high_risk_percentage": 24.36
+    }
+  },
+  "anova_hypothesis_tests": {
+    "course_differences": {
+      "f_statistic": 7.25,
+      "p_value": 1.06e-07,
+      "statistically_significant": true
+    },
+    "year_of_study_differences": {
+      "f_statistic": 4.31,
+      "p_value": 0.00485,
+      "statistically_significant": true
+    }
+  }
+}

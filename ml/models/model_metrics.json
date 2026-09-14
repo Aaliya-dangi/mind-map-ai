@@ -1,0 +1,414 @@
+{
+  "best_model_name": "Logistic Regression",
+  "classes": [
+    "Low",
+    "Moderate",
+    "High",
+    "Very High"
+  ],
+  "feature_names": [
+    "age",
+    "year_of_study",
+    "attendance_percentage",
+    "cgpa",
+    "study_hours_per_day",
+    "assignment_workload",
+    "exam_frequency",
+    "academic_pressure",
+    "sleep_hours",
+    "sleep_quality",
+    "screen_time_hours",
+    "physical_activity_hours",
+    "social_interaction_hours",
+    "breaks_per_day",
+    "hobbies_hours_per_week",
+    "days_off_per_week",
+    "academic_pressure_score",
+    "lifestyle_balance_score",
+    "gender_Female",
+    "gender_Male",
+    "gender_Other",
+    "course_Arts",
+    "course_Business",
+    "course_Commerce",
+    "course_Computer Science",
+    "course_Design",
+    "course_Engineering",
+    "course_Medicine"
+  ],
+  "test_set_size": 600,
+  "test_distribution": {
+    "Moderate": 371,
+    "High": 120,
+    "Low": 98,
+    "Very High": 11
+  },
+  "models": {
+    "Logistic Regression": {
+      "accuracy": 0.77,
+      "precision_macro": 0.6774,
+      "recall_macro": 0.6062,
+      "f1_macro": 0.6307,
+      "f1_weighted": 0.7656,
+      "confusion_matrix": [
+        [
+          55,
+          43,
+          0,
+          0
+        ],
+        [
+          22,
+          315,
+          34,
+          0
+        ],
+        [
+          0,
+          28,
+          89,
+          3
+        ],
+        [
+          0,
+          0,
+          8,
+          3
+        ]
+      ],
+      "target_classes": [
+        "Low",
+        "Moderate",
+        "High",
+        "Very High"
+      ],
+      "classification_report": {
+        "Low": {
+          "precision": 0.7142857142857143,
+          "recall": 0.5612244897959183,
+          "f1-score": 0.6285714285714286,
+          "support": 98.0
+        },
+        "Moderate": {
+          "precision": 0.8160621761658031,
+          "recall": 0.8490566037735849,
+          "f1-score": 0.8322324966974901,
+          "support": 371.0
+        },
+        "High": {
+          "precision": 0.6793893129770993,
+          "recall": 0.7416666666666667,
+          "f1-score": 0.7091633466135459,
+          "support": 120.0
+        },
+        "Very High": {
+          "precision": 0.5,
+          "recall": 0.2727272727272727,
+          "f1-score": 0.35294117647058826,
+          "support": 11.0
+        },
+        "accuracy": 0.77,
+        "macro avg": {
+          "precision": 0.6774343008571542,
+          "recall": 0.6061687582408606,
+          "f1-score": 0.6307271120882633,
+          "support": 600.0
+        },
+        "weighted avg": {
+          "precision": 0.7663096415246081,
+          "recall": 0.77,
+          "f1-score": 0.7655670180159514,
+          "support": 600.0
+        }
+      },
+      "top_features": {
+        "assignment_workload": 0.6319,
+        "academic_pressure_score": 0.5811,
+        "academic_pressure": 0.4807,
+        "course_Commerce": 0.3577,
+        "course_Arts": 0.3547,
+        "exam_frequency": 0.3366,
+        "physical_activity_hours": 0.3354,
+        "sleep_quality": 0.3287,
+        "lifestyle_balance_score": 0.3258,
+        "sleep_hours": 0.2914,
+        "gender_Other": 0.2795,
+        "course_Design": 0.2704
+      },
+      "all_features": {
+        "assignment_workload": 0.6319,
+        "academic_pressure_score": 0.5811,
+        "academic_pressure": 0.4807,
+        "course_Commerce": 0.3577,
+        "course_Arts": 0.3547,
+        "exam_frequency": 0.3366,
+        "physical_activity_hours": 0.3354,
+        "sleep_quality": 0.3287,
+        "lifestyle_balance_score": 0.3258,
+        "sleep_hours": 0.2914,
+        "gender_Other": 0.2795,
+        "course_Design": 0.2704,
+        "social_interaction_hours": 0.2507,
+        "course_Business": 0.2073,
+        "study_hours_per_day": 0.1901,
+        "hobbies_hours_per_week": 0.1851,
+        "screen_time_hours": 0.1801,
+        "year_of_study": 0.1794,
+        "breaks_per_day": 0.176,
+        "gender_Female": 0.1567,
+        "attendance_percentage": 0.132,
+        "gender_Male": 0.1264,
+        "course_Engineering": 0.1245,
+        "course_Medicine": 0.1157,
+        "cgpa": 0.1083,
+        "days_off_per_week": 0.0962,
+        "course_Computer Science": 0.0944,
+        "age": 0.0376
+      }
+    },
+    "Random Forest": {
+      "accuracy": 0.775,
+      "precision_macro": 0.5635,
+      "recall_macro": 0.5364,
+      "f1_macro": 0.544,
+      "f1_weighted": 0.7639,
+      "confusion_matrix": [
+        [
+          52,
+          46,
+          0,
+          0
+        ],
+        [
+          16,
+          324,
+          31,
+          0
+        ],
+        [
+          0,
+          30,
+          89,
+          1
+        ],
+        [
+          0,
+          0,
+          11,
+          0
+        ]
+      ],
+      "target_classes": [
+        "Low",
+        "Moderate",
+        "High",
+        "Very High"
+      ],
+      "classification_report": {
+        "Low": {
+          "precision": 0.7647058823529411,
+          "recall": 0.5306122448979592,
+          "f1-score": 0.6265060240963856,
+          "support": 98.0
+        },
+        "Moderate": {
+          "precision": 0.81,
+          "recall": 0.8733153638814016,
+          "f1-score": 0.8404669260700389,
+          "support": 371.0
+        },
+        "High": {
+          "precision": 0.6793893129770993,
+          "recall": 0.7416666666666667,
+          "f1-score": 0.7091633466135459,
+          "support": 120.0
+        },
+        "Very High": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 11.0
+        },
+        "accuracy": 0.775,
+        "macro avg": {
+          "precision": 0.5635237988325101,
+          "recall": 0.5363985688615069,
+          "f1-score": 0.5440340741949925,
+          "support": 600.0
+        },
+        "weighted avg": {
+          "precision": 0.7616298233797336,
+          "recall": 0.775,
+          "f1-score": 0.7638507025450929,
+          "support": 600.0
+        }
+      },
+      "top_features": {
+        "academic_pressure_score": 0.2224,
+        "lifestyle_balance_score": 0.1784,
+        "academic_pressure": 0.0901,
+        "sleep_quality": 0.0541,
+        "assignment_workload": 0.0522,
+        "social_interaction_hours": 0.0504,
+        "sleep_hours": 0.045,
+        "study_hours_per_day": 0.0447,
+        "hobbies_hours_per_week": 0.0404,
+        "physical_activity_hours": 0.0352,
+        "screen_time_hours": 0.0318,
+        "attendance_percentage": 0.0287
+      },
+      "all_features": {
+        "academic_pressure_score": 0.2224,
+        "lifestyle_balance_score": 0.1784,
+        "academic_pressure": 0.0901,
+        "sleep_quality": 0.0541,
+        "assignment_workload": 0.0522,
+        "social_interaction_hours": 0.0504,
+        "sleep_hours": 0.045,
+        "study_hours_per_day": 0.0447,
+        "hobbies_hours_per_week": 0.0404,
+        "physical_activity_hours": 0.0352,
+        "screen_time_hours": 0.0318,
+        "attendance_percentage": 0.0287,
+        "breaks_per_day": 0.0277,
+        "cgpa": 0.0248,
+        "exam_frequency": 0.0178,
+        "age": 0.0119,
+        "days_off_per_week": 0.0104,
+        "year_of_study": 0.0088,
+        "course_Commerce": 0.0036,
+        "course_Arts": 0.003,
+        "course_Engineering": 0.0028,
+        "gender_Female": 0.0028,
+        "course_Design": 0.0027,
+        "course_Computer Science": 0.0026,
+        "gender_Male": 0.0025,
+        "course_Business": 0.0023,
+        "course_Medicine": 0.0017,
+        "gender_Other": 0.0011
+      }
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.7517,
+      "precision_macro": 0.5431,
+      "recall_macro": 0.5302,
+      "f1_macro": 0.5336,
+      "f1_weighted": 0.7486,
+      "confusion_matrix": [
+        [
+          56,
+          42,
+          0,
+          0
+        ],
+        [
+          21,
+          309,
+          40,
+          1
+        ],
+        [
+          0,
+          27,
+          86,
+          7
+        ],
+        [
+          0,
+          0,
+          11,
+          0
+        ]
+      ],
+      "target_classes": [
+        "Low",
+        "Moderate",
+        "High",
+        "Very High"
+      ],
+      "classification_report": {
+        "Low": {
+          "precision": 0.7272727272727273,
+          "recall": 0.5714285714285714,
+          "f1-score": 0.64,
+          "support": 98.0
+        },
+        "Moderate": {
+          "precision": 0.8174603174603174,
+          "recall": 0.8328840970350404,
+          "f1-score": 0.8251001335113485,
+          "support": 371.0
+        },
+        "High": {
+          "precision": 0.6277372262773723,
+          "recall": 0.7166666666666667,
+          "f1-score": 0.669260700389105,
+          "support": 120.0
+        },
+        "Very High": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 11.0
+        },
+        "accuracy": 0.7516666666666667,
+        "macro avg": {
+          "precision": 0.5431175677526042,
+          "recall": 0.5302448337825696,
+          "f1-score": 0.5335902084751134,
+          "support": 600.0
+        },
+        "weighted avg": {
+          "precision": 0.7497982870063162,
+          "recall": 0.7516666666666667,
+          "f1-score": 0.7485723892990049,
+          "support": 600.0
+        }
+      },
+      "top_features": {
+        "academic_pressure_score": 0.5037,
+        "lifestyle_balance_score": 0.1924,
+        "attendance_percentage": 0.0408,
+        "social_interaction_hours": 0.0375,
+        "cgpa": 0.0341,
+        "hobbies_hours_per_week": 0.0279,
+        "study_hours_per_day": 0.0273,
+        "physical_activity_hours": 0.0235,
+        "screen_time_hours": 0.0195,
+        "sleep_hours": 0.0187,
+        "assignment_workload": 0.0099,
+        "academic_pressure": 0.0098
+      },
+      "all_features": {
+        "academic_pressure_score": 0.5037,
+        "lifestyle_balance_score": 0.1924,
+        "attendance_percentage": 0.0408,
+        "social_interaction_hours": 0.0375,
+        "cgpa": 0.0341,
+        "hobbies_hours_per_week": 0.0279,
+        "study_hours_per_day": 0.0273,
+        "physical_activity_hours": 0.0235,
+        "screen_time_hours": 0.0195,
+        "sleep_hours": 0.0187,
+        "assignment_workload": 0.0099,
+        "academic_pressure": 0.0098,
+        "year_of_study": 0.0073,
+        "breaks_per_day": 0.0067,
+        "age": 0.0067,
+        "sleep_quality": 0.0064,
+        "course_Commerce": 0.0058,
+        "days_off_per_week": 0.0049,
+        "exam_frequency": 0.0045,
+        "course_Design": 0.0033,
+        "course_Arts": 0.0024,
+        "course_Engineering": 0.0019,
+        "course_Business": 0.0016,
+        "course_Computer Science": 0.0015,
+        "gender_Female": 0.0011,
+        "course_Medicine": 0.0003,
+        "gender_Other": 0.0003,
+        "gender_Male": 0.0001
+      }
+    }
+  }
+}

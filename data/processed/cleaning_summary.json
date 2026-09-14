@@ -1,0 +1,26 @@
+{
+  "initial_row_count": 3005,
+  "initial_column_count": 23,
+  "duplicates_removed": 5,
+  "imputations": {
+    "sleep_quality": {
+      "missing_count": 36,
+      "strategy": "median",
+      "value": 7.0
+    },
+    "hobbies_hours_per_week": {
+      "missing_count": 45,
+      "strategy": "median",
+      "value": 6.7
+    }
+  },
+  "range_adjustments": {},
+  "final_row_count": 3000,
+  "final_column_count": 23,
+  "risk_distribution": {
+    "Moderate": 1855,
+    "High": 602,
+    "Low": 489,
+    "Very High": 54
+  }
+}

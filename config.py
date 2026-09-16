@@ -20,7 +20,7 @@ PROCESSED_DATA_DIR = DATA_DIR / "processed"
 ML_DIR = BASE_DIR / "ml"
 MODELS_DIR = ML_DIR / "models"
 DB_DIR = BASE_DIR / "db"
-APP_DIR = BASE_DIR / "app"
+PAGES_DIR = BASE_DIR / "pages"
 FEATURES_DIR = BASE_DIR / "features"
 UTILS_DIR = BASE_DIR / "utils"
 

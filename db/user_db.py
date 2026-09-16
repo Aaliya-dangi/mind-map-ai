@@ -1043,19 +1043,20 @@ def get_admin_swot_analysis(
 
 
 # =====================================================================
-# DEFAULT ACCOUNTS & DEMO SEEDING
+# DEFAULT ACCOUNTS & ADMIN INITIALIZATION
 # =====================================================================
 
-def seed_default_accounts():
+def ensure_admin_account():
     """
-    Seeds default admin and student accounts if not present:
-    - Admin: admin@mindmap.ai / AdminPass2026! (username: admin)
-    - Student: student@mindmap.ai / StudentPass2026! (username: demo, full_name: Aditi Rao)
+    Ensures that the default administrator account exists in the database:
+    - Admin: admin@mindmap.ai / AdminPass2026! (role: admin)
+    
+    Zero fake student accounts, zero synthetic assessments, and zero fake predictions
+    are created. Live student records and statistics are strictly populated by real users.
     """
     init_user_tables()
     from utils.auth import hash_password
 
-    # 1. Admin Account
     admin_user = get_user_by_email("admin@mindmap.ai")
     if not admin_user:
         pwd_hash, salt = hash_password("AdminPass2026!")
@@ -1068,118 +1069,13 @@ def seed_default_accounts():
             role="admin",
         )
 
-    # 2. Demo Student Account
-    student_user = get_user_by_email("student@mindmap.ai") or get_user_by_username("demo")
-    if not student_user:
-        pwd_hash, salt = hash_password("StudentPass2026!")
-        student_user = create_user(
-            name="Aditi Rao",
-            full_name="Aditi Rao",
-            username="demo",
-            email="student@mindmap.ai",
-            password_hash=pwd_hash,
-            salt=salt,
-            role="student",
-            age=21,
-            gender="Female",
-            year_of_study=3,
-            course="Computer Science",
-            attendance_percentage=84.0,
-            cgpa=8.2,
-        )
 
-    if student_user:
-        history = get_user_assessment_history(student_user["user_id"])
-        if len(history) == 0:
-            from ml.predict import predict_burnout_risk
-            from utils.recommendations import generate_data_driven_recommendations
-
-            sample_payload = {
-                "age": 21,
-                "gender": "Female",
-                "year_of_study": 3,
-                "course": "Computer Science",
-                "attendance_percentage": 84.0,
-                "cgpa": 8.2,
-                "study_hours_per_day": 6.5,
-                "assignment_workload": 7,
-                "exam_frequency": 2,
-                "academic_pressure": 7,
-                "sleep_hours": 5.8,
-                "sleep_quality": 5,
-                "screen_time_hours": 8.5,
-                "physical_activity_hours": 2.0,
-                "social_interaction_hours": 7.0,
-                "breaks_per_day": 2,
-                "hobbies_hours_per_week": 3.5,
-                "days_off_per_week": 1,
-            }
-            pred = predict_burnout_risk(sample_payload)
-            recs = generate_data_driven_recommendations(sample_payload, pred)
-            save_user_assessment_and_prediction(student_user["user_id"], sample_payload, pred, recs)
+def seed_default_accounts():
+    """Alias for ensure_admin_account for backwards compatibility."""
+    ensure_admin_account()
 
 
 def seed_demo_user():
-    """Seeds the demo user environment for test fixtures and instant login."""
-    seed_default_accounts()
+    """Alias for ensure_admin_account for backwards compatibility."""
+    ensure_admin_account()
 
-
-
-def seed_sample_student_cohort():
-    """
-    Optional helper to populate a realistic sample cohort of 12 diverse students
-    into the database tables for instant admin analytics demonstration.
-    """
-    from utils.auth import hash_password
-    from ml.predict import predict_burnout_risk
-    from utils.recommendations import generate_data_driven_recommendations
-
-    sample_students = [
-        {"name": "Rohan Sharma", "email": "rohan.sharma@campus.edu", "age": 22, "gender": "Male", "year": 4, "course": "Medicine", "study": 9.0, "sleep": 4.5, "sq": 3, "screen": 10.0, "workload": 9, "pressure": 9, "breaks": 1, "phys": 1.0, "hobbies": 1.0, "days_off": 0},
-        {"name": "Priya Patel", "email": "priya.patel@campus.edu", "age": 20, "gender": "Female", "year": 2, "course": "Computer Science", "study": 7.5, "sleep": 5.5, "sq": 5, "screen": 9.0, "workload": 7, "pressure": 7, "breaks": 2, "phys": 2.5, "hobbies": 3.0, "days_off": 1},
-        {"name": "Aarav Gupta", "email": "aarav.gupta@campus.edu", "age": 19, "gender": "Male", "year": 1, "course": "Business", "study": 4.0, "sleep": 7.5, "sq": 8, "screen": 6.0, "workload": 4, "pressure": 4, "breaks": 4, "phys": 5.0, "hobbies": 6.0, "days_off": 2},
-        {"name": "Sneha Verma", "email": "sneha.verma@campus.edu", "age": 21, "gender": "Female", "year": 3, "course": "Design", "study": 5.0, "sleep": 6.8, "sq": 7, "screen": 7.0, "workload": 5, "pressure": 5, "breaks": 3, "phys": 4.0, "hobbies": 8.0, "days_off": 1},
-        {"name": "Vikram Singh", "email": "vikram.singh@campus.edu", "age": 23, "gender": "Male", "year": 4, "course": "Engineering", "study": 8.5, "sleep": 5.0, "sq": 4, "screen": 9.5, "workload": 8, "pressure": 8, "breaks": 2, "phys": 1.5, "hobbies": 2.0, "days_off": 0},
-        {"name": "Ananya Joshi", "email": "ananya.joshi@campus.edu", "age": 20, "gender": "Female", "year": 2, "course": "Arts", "study": 3.5, "sleep": 8.2, "sq": 9, "screen": 5.0, "workload": 3, "pressure": 3, "breaks": 5, "phys": 6.0, "hobbies": 10.0, "days_off": 2},
-        {"name": "Karan Mehta", "email": "karan.mehta@campus.edu", "age": 22, "gender": "Male", "year": 3, "course": "Commerce", "study": 6.0, "sleep": 6.2, "sq": 6, "screen": 7.5, "workload": 6, "pressure": 6, "breaks": 3, "phys": 3.5, "hobbies": 4.0, "days_off": 1},
-        {"name": "Meera Nair", "email": "meera.nair@campus.edu", "age": 21, "gender": "Female", "year": 3, "course": "Medicine", "study": 9.5, "sleep": 4.8, "sq": 4, "screen": 8.5, "workload": 9, "pressure": 9, "breaks": 1, "phys": 1.0, "hobbies": 1.5, "days_off": 0},
-    ]
-
-    for s in sample_students:
-        if not get_user_by_email(s["email"]):
-            pwd_hash, salt = hash_password("StudentPass2026!")
-            u = create_user(
-                name=s["name"],
-                email=s["email"],
-                password_hash=pwd_hash,
-                salt=salt,
-                role="student",
-                age=s["age"],
-                gender=s["gender"],
-                year_of_study=s["year"],
-                course=s["course"],
-            )
-            if u:
-                payload = {
-                    "age": s["age"],
-                    "gender": s["gender"],
-                    "year_of_study": s["year"],
-                    "course": s["course"],
-                    "attendance_percentage": 82.0,
-                    "cgpa": 7.8,
-                    "study_hours_per_day": s["study"],
-                    "assignment_workload": s["workload"],
-                    "exam_frequency": 2,
-                    "academic_pressure": s["pressure"],
-                    "sleep_hours": s["sleep"],
-                    "sleep_quality": s["sq"],
-                    "screen_time_hours": s["screen"],
-                    "physical_activity_hours": s["phys"],
-                    "social_interaction_hours": 7.0,
-                    "breaks_per_day": s["breaks"],
-                    "hobbies_hours_per_week": s["hobbies"],
-                    "days_off_per_week": s["days_off"],
-                }
-                pred = predict_burnout_risk(payload)
-                recs = generate_data_driven_recommendations(payload, pred)
-                save_user_assessment_and_prediction(u["user_id"], payload, pred, recs)

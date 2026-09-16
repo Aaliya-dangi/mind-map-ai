@@ -268,4 +268,20 @@ if submitted:
                 unsafe_allow_html=True,
             )
 
+        # Download Report Action
+        import json
+        export_payload = {
+            "student_name": student_name,
+            "inputs": student_payload,
+            "prediction": prediction,
+            "recommendations": recommendations,
+        }
+        export_json = json.dumps(export_payload, indent=2)
+        st.download_button(
+            label="📥 Download Assessment Report (JSON)",
+            data=export_json,
+            file_name=f"mindmap_assessment_report_{student_name.lower().replace(' ', '_')}.json",
+            mime="application/json",
+        )
+
 render_disclaimer()

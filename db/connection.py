@@ -85,10 +85,12 @@ def execute_query(query: str, params: Optional[Tuple] = None) -> Tuple[pd.DataFr
 
     try:
         if engine == "mysql":
+            # Translate ? placeholders to %s for MySQL compatibility
+            formatted_query = query.replace("?", "%s") if params else query
             if params:
-                df = pd.read_sql_query(query, conn, params=params)
+                df = pd.read_sql_query(formatted_query, conn, params=params)
             else:
-                df = pd.read_sql_query(query, conn)
+                df = pd.read_sql_query(formatted_query, conn)
             conn.close()
             return df, meta
         else:

@@ -168,20 +168,27 @@ feat_col1, feat_col2 = st.columns(2)
 
 with feat_col1:
     st.markdown("##### 📈 Top Predictive Feature Weights (Random Forest)")
-    rf_feat_names = [
-        "Academic Strain Score",
-        "Lifestyle Balance Score",
-        "Self-Reported Pressure",
-        "Assignment Workload",
-        "Sleep Quality",
-        "Screen Time Duration",
-        "Nightly Sleep Duration",
-        "Daily Study Hours",
-        "Attendance Percentage",
-        "Physical Activity Hours",
-    ]
-    rf_importances = [0.24, 0.19, 0.14, 0.11, 0.09, 0.07, 0.06, 0.04, 0.03, 0.03]
-    df_rf_imp = pd.DataFrame({"Feature": rf_feat_names, "Influence Weight": rf_importances}).sort_values(by="Influence Weight", ascending=True)
+    rf_model_data = models_data.get("Random Forest", {})
+    rf_top = rf_model_data.get("top_features", {})
+    
+    if rf_top:
+        rf_feat_rows = [
+            {
+                "Feature": k.replace("_", " ").title()
+                .replace("Academic Pressure Score", "Academic Strain Score")
+                .replace("Lifestyle Balance Score", "Lifestyle Balance Buffer"),
+                "Influence Weight": float(v),
+            }
+            for k, v in list(rf_top.items())[:10]
+        ]
+        df_rf_imp = pd.DataFrame(rf_feat_rows).sort_values(by="Influence Weight", ascending=True)
+    else:
+        # Fallback if metrics missing
+        rf_feat_names = ["Academic Strain Score", "Lifestyle Balance Score", "Academic Pressure", "Sleep Quality", "Screen Time", "Daily Study Hours"]
+        rf_importances = [0.22, 0.18, 0.12, 0.09, 0.08, 0.06]
+        df_rf_imp = pd.DataFrame({"Feature": rf_feat_names, "Influence Weight": rf_importances}).sort_values(by="Influence Weight", ascending=True)
+
+    max_weight = float(df_rf_imp["Influence Weight"].max() * 1.25) if not df_rf_imp.empty else 0.30
 
     fig_rf = px.bar(
         df_rf_imp,
@@ -201,7 +208,7 @@ with feat_col1:
         height=350,
         margin=dict(t=10, b=10, l=10, r=10),
         coloraxis_showscale=False,
-        xaxis=dict(range=[0, 0.30]),
+        xaxis=dict(range=[0, max_weight]),
     )
     st.plotly_chart(fig_rf)
 

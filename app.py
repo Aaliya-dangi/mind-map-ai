@@ -54,11 +54,11 @@ from db.user_db import (
     get_admin_risk_distribution,
     get_admin_swot_analysis,
     get_admin_student_records,
-    seed_default_accounts,
+    ensure_admin_account,
 )
 
-# Initialize accounts, styles & sidebar
-seed_default_accounts()
+# Initialize admin account, styles & sidebar
+ensure_admin_account()
 inject_custom_css()
 render_sidebar()
 plotly_layout = get_plotly_layout_defaults()
@@ -257,19 +257,11 @@ elif is_admin():
         st.markdown("##### ⚡ Navigation Shortcuts")
         qa1, qa2 = st.columns(2)
         with qa1:
-            st.markdown(
-                """
-                **📊 [Population Analytics](Population_Analytics)**  
-                Inspect multi-dimensional cohort distributions and SQL queries.
-                """
-            )
+            st.page_link("pages/4_📊_Population_Analytics.py", label="Population Analytics", icon="📊")
+            st.caption("Inspect multi-dimensional cohort distributions and SQL queries.")
         with qa2:
-            st.markdown(
-                """
-                **🔬 [Model Insights](Model_Insights)**  
-                Evaluate ML metrics, confusion matrices, and feature influence.
-                """
-            )
+            st.page_link("pages/5_🔬_Model_Insights.py", label="Model Insights", icon="🔬")
+            st.caption("Evaluate ML metrics, confusion matrices, and feature influence.")
 
     st.markdown("---")
 
@@ -405,7 +397,7 @@ else:
             st.metric("Assessments Completed", "0")
 
         st.markdown("###")
-        st.info("👉 Click **My Assessment** in the sidebar to start your first evaluation!")
+        st.page_link("pages/1_🎯_My_Assessment.py", label="Start Your First Burnout Assessment", icon="🎯")
 
     else:
         # Full Personalized Dashboard
@@ -571,25 +563,13 @@ else:
         st.markdown("### ⚡ **Quick Student Actions**")
         qa1, qa2, qa3 = st.columns(3)
         with qa1:
-            st.markdown(
-                """
-                **🎯 [Take New Assessment](My_Assessment)**  
-                Update your current sleep and workload metrics to recalculate risk.
-                """
-            )
+            st.page_link("pages/1_🎯_My_Assessment.py", label="Take New Assessment", icon="🎯")
+            st.caption("Update your current sleep and workload metrics to recalculate risk.")
         with qa2:
-            st.markdown(
-                """
-                **🔮 [Open What-If Simulator](What_If_Simulator)**  
-                Simulate potential lifestyle habit adjustments against your baseline.
-                """
-            )
+            st.page_link("pages/2_🔮_What_If_Simulator.py", label="Open What-If Simulator", icon="🔮")
+            st.caption("Simulate potential lifestyle habit adjustments against your baseline.")
         with qa3:
-            st.markdown(
-                """
-                **👤 [Edit Student Profile](Profile)**  
-                Update your enrolled course, year of study, CGPA, or attendance.
-                """
-            )
+            st.page_link("pages/6_👤_Profile.py", label="Edit Student Profile", icon="👤")
+            st.caption("Update your enrolled course, year of study, CGPA, or attendance.")
 
     render_disclaimer()

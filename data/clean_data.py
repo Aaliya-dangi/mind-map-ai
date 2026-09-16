@@ -87,7 +87,7 @@ def clean_student_dataset(
 
     # Step 3: Range Validations & Clipping (per Data Dictionary §14)
     feature_bounds = {
-        "age": (18, 28, int),
+        "age": (17, 35, int),
         "year_of_study": (1, 4, int),
         "attendance_percentage": (40.0, 100.0, float),
         "cgpa": (4.0, 10.0, float),

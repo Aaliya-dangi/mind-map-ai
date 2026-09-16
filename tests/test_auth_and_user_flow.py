@@ -11,13 +11,15 @@ from utils.auth import hash_password, verify_password, signup_user, login_user
 from db.user_db import (
     create_user,
     get_user_by_username,
+    get_user_by_email,
     get_student_profile,
     update_student_profile,
     save_user_assessment_and_prediction,
     get_user_assessment_history,
     get_latest_user_prediction,
-    seed_demo_user,
+    ensure_admin_account,
 )
+from db.connection import get_connection
 from ml.predict import predict_burnout_risk
 from utils.recommendations import generate_data_driven_recommendations
 
@@ -48,6 +50,18 @@ class TestAuthenticationSecurity:
         u2 = create_user(username=unique_uname, password_hash=pwd_hash, salt=salt, full_name="Student Two")
         assert u2 is None
 
+        # Clean up
+        conn, engine = get_connection()
+        c = conn.cursor()
+        if engine == "sqlite":
+            c.execute("DELETE FROM student_profiles WHERE user_id = ?", (u1["user_id"],))
+            c.execute("DELETE FROM users WHERE user_id = ?", (u1["user_id"],))
+        else:
+            c.execute("DELETE FROM student_profiles WHERE user_id = %s", (u1["user_id"],))
+            c.execute("DELETE FROM users WHERE user_id = %s", (u1["user_id"],))
+        conn.commit()
+        conn.close()
+
 
 class TestStudentProfileAndWorkflow:
     @pytest.fixture
@@ -67,7 +81,25 @@ class TestStudentProfileAndWorkflow:
             attendance_percentage=88.5,
             cgpa=8.5,
         )
-        return user_info, uname, pwd
+        yield user_info, uname, pwd
+
+        # Teardown / Cleanup
+        if user_info:
+            conn, engine = get_connection()
+            c = conn.cursor()
+            uid = user_info["user_id"]
+            if engine == "sqlite":
+                c.execute("DELETE FROM predictions WHERE user_id = ?", (uid,))
+                c.execute("DELETE FROM assessments WHERE user_id = ?", (uid,))
+                c.execute("DELETE FROM student_profiles WHERE user_id = ?", (uid,))
+                c.execute("DELETE FROM users WHERE user_id = ?", (uid,))
+            else:
+                c.execute("DELETE FROM predictions WHERE user_id = %s", (uid,))
+                c.execute("DELETE FROM assessments WHERE user_id = %s", (uid,))
+                c.execute("DELETE FROM student_profiles WHERE user_id = %s", (uid,))
+                c.execute("DELETE FROM users WHERE user_id = %s", (uid,))
+            conn.commit()
+            conn.close()
 
     def test_profile_fetch_and_update(self, test_student):
         """Student profile should accurately fetch and update."""
@@ -87,7 +119,7 @@ class TestStudentProfileAndWorkflow:
             age=23,
             gender="Male",
             year_of_study=4,
-            course="Data Science",
+            course="Computer Science",
             attendance_percentage=91.0,
             cgpa=8.9,
         )
@@ -152,12 +184,10 @@ class TestStudentProfileAndWorkflow:
         assert history[1]["assessment_id"] == aid_2
         assert history[1]["risk_score"] < history[0]["risk_score"]
 
-    def test_demo_user_seeding(self):
-        """Seed demo user function should create user and initial assessment."""
-        seed_demo_user()
-        demo = get_user_by_username("demo")
-        assert demo is not None
-        assert demo["full_name"] == "Aditi Rao"
-        
-        history = get_user_assessment_history(demo["user_id"])
-        assert len(history) >= 1
+    def test_admin_account_initialization(self):
+        """ensure_admin_account function should ensure the admin user exists."""
+        ensure_admin_account()
+        admin = get_user_by_email("admin@mindmap.ai")
+        assert admin is not None
+        assert admin["role"] == "admin"
+

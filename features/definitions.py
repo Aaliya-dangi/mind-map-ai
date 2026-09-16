@@ -47,7 +47,7 @@ ALL_PREDICTOR_FEATURES = (
 
 # Feature metadata (for forms, sliders, and visualizations)
 FEATURE_METADATA: Dict[str, Dict[str, Any]] = {
-    "age": {"label": "Age", "type": "int", "min": 18, "max": 28, "default": 21, "unit": "years"},
+    "age": {"label": "Age", "type": "int", "min": 17, "max": 35, "default": 21, "unit": "years"},
     "gender": {"label": "Gender", "type": "categorical", "options": ["Female", "Male", "Other"], "default": "Female"},
     "year_of_study": {"label": "Year of Study", "type": "int", "min": 1, "max": 4, "default": 2, "unit": "year"},
     "course": {

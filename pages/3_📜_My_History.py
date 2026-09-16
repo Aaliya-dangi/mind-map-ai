@@ -45,7 +45,7 @@ render_header(
 
 if not is_authenticated():
     st.warning("🔒 **Authentication Required:** Please log in or create a student account to access your personal assessment history.")
-    st.info("👉 Head back to the **Home** page to log in or use the 1-click Quick Demo.")
+    st.page_link("app.py", label="Return to Home & Log In", icon="🏠")
     st.stop()
 
 history = get_user_assessment_history(user["user_id"])
@@ -63,8 +63,7 @@ if not history:
         """,
         unsafe_allow_html=True,
     )
-    if st.button("🚀 Start My First Assessment", type="primary", width="stretch"):
-        st.info("👉 Please navigate to **My Assessment** in the sidebar.")
+    st.page_link("pages/1_🎯_My_Assessment.py", label="Start Your First Assessment", icon="🎯")
     st.stop()
 
 # Top KPI Summary Cards for History
@@ -195,6 +194,14 @@ for h in reversed(history):
 
 df_hist = pd.DataFrame(history_table_data)
 st.dataframe(df_hist, hide_index=True)
+
+csv_data = df_hist.to_csv(index=False).encode("utf-8")
+st.download_button(
+    label="📥 Download Assessment History (CSV)",
+    data=csv_data,
+    file_name=f"mindmap_assessment_history_{student_name.lower().replace(' ', '_')}.csv",
+    mime="text/csv",
+)
 
 st.markdown("---")
 

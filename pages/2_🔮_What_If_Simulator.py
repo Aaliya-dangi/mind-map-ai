@@ -51,7 +51,7 @@ history = get_user_assessment_history(user["user_id"]) if user else []
 # =====================================================================
 if not is_authenticated():
     st.warning("🔒 **Authentication Required:** Please log in as a student to load your personalized baseline for simulation.")
-    st.info("👉 Return to the **Home** page to log in or use the 1-Click Quick Demo.")
+    st.page_link("app.py", label="Return to Home & Log In", icon="🏠")
     st.stop()
 
 if not history:
@@ -68,8 +68,7 @@ if not history:
         """,
         unsafe_allow_html=True,
     )
-    if st.button("🚀 Complete an Assessment", width="stretch", type="primary"):
-        st.info("👉 Please select **My Assessment** in the sidebar navigation to complete your assessment.")
+    st.page_link("pages/1_🎯_My_Assessment.py", label="Complete Your First Assessment", icon="🎯")
     st.stop()
 
 # Select from student's actual assessments

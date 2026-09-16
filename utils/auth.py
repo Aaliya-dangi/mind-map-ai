@@ -24,7 +24,7 @@ from db.user_db import (
     get_user_by_email,
     get_student_profile,
     update_student_profile,
-    seed_default_accounts,
+    ensure_admin_account,
 )
 from features.definitions import CATEGORICAL_VOCABULARIES
 
@@ -107,11 +107,11 @@ def login_user(email: str, password: str) -> Tuple[bool, str, Optional[Dict[str,
     Authenticates a user (student or admin) by email/username and password.
     Returns (success, message, user_dict).
     """
-    seed_default_accounts()
+    ensure_admin_account()
     email_clean = email.strip().lower()
     user_record = get_user_by_email(email_clean)
     if not user_record:
-        return False, "User not found. Please check your email or sign up.", None
+        return False, "User not found. Please check your email or register a new student account.", None
 
     if not verify_password(password, user_record["password_hash"], user_record["salt"]):
         return False, "Incorrect password. Please try again.", None
@@ -148,7 +148,7 @@ def signup_user(
     Registers a new student user and logs them in.
     Returns (success, message, user_dict).
     """
-    seed_default_accounts()
+    ensure_admin_account()
     email_clean = email.strip().lower()
     name_clean = name.strip()
 
@@ -231,9 +231,13 @@ def require_admin() -> bool:
 
 def render_auth_section():
     """
-    Renders the tabbed Student Login / Sign-Up / Admin Login / 1-Click Quick Demo cards.
+    Renders the role-based authentication portal tabs:
+    - Student Login
+    - Student Registration
+    - Administrator Login
+    - 1-Click Admin Access
     """
-    seed_default_accounts()
+    ensure_admin_account()
 
     st.markdown(
         """
@@ -241,7 +245,7 @@ def render_auth_section():
                     border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
             <h3 style="margin-top:0; color:#f8fafc;">🔐 MindMap AI Authentication Portal</h3>
             <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:0.5rem;">
-                Select your role to enter: <strong>Students</strong> can take personal burnout assessments, track risk history, and simulate interventions. <strong>Administrators</strong> can monitor aggregate cohort analytics and manage student records.
+                Select your role to enter: <strong>Students</strong> can register to take personal burnout assessments, track risk history, and simulate pacing interventions. <strong>Administrators</strong> can monitor aggregate institutional analytics and student records.
             </p>
         </div>
         """,
@@ -252,13 +256,13 @@ def render_auth_section():
         "🎓 Student Login",
         "📝 Student Registration",
         "🛡️ Admin Login",
-        "⚡ 1-Click Quick Demo",
+        "⚡ Instant Admin Access",
     ])
 
     # 1. Student Login
     with tab_student_login:
         with st.form("student_login_form"):
-            s_email = st.text_input("Student Email", placeholder="e.g. student@mindmap.ai or your registered email")
+            s_email = st.text_input("Student Email", placeholder="Enter your registered email address")
             s_pass = st.text_input("Password", type="password", placeholder="Enter your password")
             s_submit = st.form_submit_button("Log In as Student", width="stretch")
 
@@ -279,8 +283,8 @@ def render_auth_section():
             st.markdown("##### 1. Account Credentials")
             su_col1, su_col2 = st.columns(2)
             with su_col1:
-                reg_name = st.text_input("Full Name", placeholder="e.g. Aditi Rao")
-                reg_email = st.text_input("Email Address", placeholder="e.g. aditi@campus.edu")
+                reg_name = st.text_input("Full Name", placeholder="e.g. Maya Chen")
+                reg_email = st.text_input("Email Address", placeholder="e.g. maya.chen@campus.edu")
             with su_col2:
                 reg_pass = st.text_input("Choose Password", type="password", placeholder="Minimum 6 characters")
                 reg_gender = st.selectbox("Gender", CATEGORICAL_VOCABULARIES["gender"])
@@ -328,7 +332,7 @@ def render_auth_section():
                 unsafe_allow_html=True,
             )
             a_email = st.text_input("Admin Email", value="admin@mindmap.ai")
-            a_pass = st.text_input("Admin Password", type="password", placeholder="Enter admin password")
+            a_pass = st.text_input("Admin Password", type="password", value="AdminPass2026!", placeholder="Enter admin password")
             a_submit = st.form_submit_button("Log In as Administrator", width="stretch")
 
             if a_submit:
@@ -345,34 +349,25 @@ def render_auth_section():
                     else:
                         st.error(msg)
 
-    # 4. Quick 1-Click Demo
+    # 4. Instant Reviewer Access (Admin Portal)
     with tab_demo:
         st.markdown(
             """
             <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); 
                         border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-                <h4 style="margin-top:0; color:#38bdf8;">✨ Instant Reviewer Access</h4>
+                <h4 style="margin-top:0; color:#38bdf8;">✨ Instant Administrator Access</h4>
                 <p style="color:#cbd5e1; font-size:0.875rem; margin-bottom:0.75rem;">
-                    One-click pre-authenticated access for evaluation and grading.
+                    One-click pre-authenticated access to inspect the institutional dashboard and cohort analytics.
                 </p>
             </div>
             """,
             unsafe_allow_html=True,
         )
-        d_col1, d_col2 = st.columns(2)
-        with d_col1:
-            if st.button("🚀 Log In as Demo Student (Aditi Rao)", width="stretch"):
-                success, msg, u = login_user("student@mindmap.ai", "StudentPass2026!")
-                if success:
-                    st.success(f"Logged in as Student: {u['name']}!")
-                    st.rerun()
-                else:
-                    st.error(msg)
-        with d_col2:
-            if st.button("🛡️ Log In as Demo Admin (System Admin)", width="stretch"):
-                success, msg, u = login_user("admin@mindmap.ai", "AdminPass2026!")
-                if success:
-                    st.success(f"Logged in as Administrator: {u['name']}!")
-                    st.rerun()
-                else:
-                    st.error(msg)
+        if st.button("🛡️ Log In as Administrator (System Admin)", width="stretch", type="primary"):
+            success, msg, u = login_user("admin@mindmap.ai", "AdminPass2026!")
+            if success:
+                st.success(f"Logged in as Administrator: {u['name']}!")
+                st.rerun()
+            else:
+                st.error(msg)
+

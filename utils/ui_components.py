@@ -303,24 +303,10 @@ def render_header(title: str, subtitle: str, icon: str = "🧠"):
 
 
 def render_sidebar():
-    """Renders standard branding, theme toggle, role badge, authentication status, and system health in the sidebar."""
+    """Renders standard branding, role badge, authentication status, and system health in the sidebar."""
     with st.sidebar:
         st.markdown("### 🧠 **MINDMAP AI**")
         st.caption("Student Burnout Intelligence Platform")
-        st.markdown("---")
-
-        # Theme Switcher (Light / Dark Mode)
-        current_theme = get_current_theme()
-        t_col1, t_col2 = st.columns(2)
-        with t_col1:
-            if st.button("🌙 Dark", key="theme_dark_btn", width="stretch", type="primary" if current_theme == "dark" else "secondary"):
-                set_current_theme("dark")
-                st.rerun()
-        with t_col2:
-            if st.button("☀ Light", key="theme_light_btn", width="stretch", type="primary" if current_theme == "light" else "secondary"):
-                set_current_theme("light")
-                st.rerun()
-
         st.markdown("---")
 
         from utils.auth import is_authenticated, get_current_user, get_current_profile, is_admin, is_student, logout_user

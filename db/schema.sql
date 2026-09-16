@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS burnout_predictions (
 CREATE TABLE IF NOT EXISTS users (
     user_id VARCHAR(36) PRIMARY KEY,
     name VARCHAR(128) NOT NULL,
+    username VARCHAR(64),
     email VARCHAR(128) UNIQUE NOT NULL,
     password_hash VARCHAR(128) NOT NULL,
     salt VARCHAR(64) NOT NULL,
@@ -73,10 +74,13 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS student_profiles (
     profile_id VARCHAR(36) PRIMARY KEY,
     user_id VARCHAR(36) UNIQUE NOT NULL,
+    full_name VARCHAR(128),
     age INT NOT NULL DEFAULT 21,
     gender VARCHAR(16) NOT NULL DEFAULT 'Other',
     year_of_study INT NOT NULL DEFAULT 2,
     course VARCHAR(64) NOT NULL DEFAULT 'Computer Science',
+    attendance_percentage DECIMAL(5, 2) NOT NULL DEFAULT 85.0,
+    cgpa DECIMAL(4, 2) NOT NULL DEFAULT 8.0,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
